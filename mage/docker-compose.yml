@@ -1,0 +1,165 @@
+version: "3.8"
+services:
+    db:
+        image: mysql:${MYSQL_VERSION}
+        ports:
+            - "${MYSQL_PORT}:3306"
+        volumes:
+            - dbdata:/var/lib/mysql
+            - /etc/localtime:/etc/localtime:ro
+            - ../config/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:rw
+            - ../log/mysql:/var/lib/mysql/log
+        environment:
+            TZ: ${TZ}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        command:
+            --default-authentication-plugin=mysql_native_password
+        # env_file: ../env/db.env
+        restart: always
+        networks:
+            - default
+        container_name: mysql8
+    rabbitmq:
+        image: rabbitmq:${RABBITMQ_VERSION}
+        ports:
+            - "${RABBITMQ_PORT_C}:5672"
+            - "${RABBITMQ_PORT_S}:15672"
+        volumes:
+            - rabbitmqdata:/var/lib/rabbitmq
+        environment:
+            TZ: ${TZ}
+            RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+            RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+        networks:
+            - default
+        # restart: always
+        container_name: rabbitmq
+    redis:
+        image: redis:${REDIS_VERSION}
+        ports:
+            - "${REDIS_PORT}:6379"
+        volumes:
+            - redisdata:/data/:rw
+            - ../config/redis/redis.conf:/etc/redis.conf:rw
+        environment:
+            - TZ=${TZ}
+        entrypoint: [ "redis-server", "/etc/redis.conf" ]
+        # command: redis-server /etc/redis.conf --requirepass ${REDIS_PASSWORD}
+        command: --requirepass ${REDIS_PASSWORD}
+        networks:
+            - default
+        restart: always
+        container_name: redis
+    es:
+        image: elasticsearch:${ES_VERSION}
+        ports:
+            - "${ES_PORT_C}:9200"
+            - "${ES_PORT_S}:9300"
+        volumes:
+            - esdata:/usr/share/elasticsearch/data
+            - ../config/es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+        environment:
+            - TZ=${TZ}
+            - discovery.type=single-node
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        # restart: always
+        networks:
+            - default
+        container_name: es
+    php81:
+        build:
+            context: ./dockerfiles/php8.1
+            args:
+                PHP_VERSION: php:${PHP81_VERSION}
+                SOURCES_MIRRORS: ${SOURCES_MIRRORS}
+        image: ${PHP81_MAGE_IMAGE}
+        expose:
+            - "9000"
+        volumes:
+            # `YAML语法`内容赋值给phpvolumes, 引用：*phpvolumes
+            # 配置文件
+            &phpvolumes
+            - ../config/php/php.ini:/usr/local/etc/php/php.ini
+            #  挂载本机`composer`执行文件和cache目录
+            - /usr/local/bin/composer:/usr/local/bin/composer
+            - ${COMPOSER_HOME_WSL}:${COMPOSER_HOME_DOCKER}:cached
+            # 挂载本机项目到`/var/www/html`中
+            - ${SOURCE_DIR}:/var/www/html
+            - ${SOURCE_DIR_WSL}:/var/www/wsl
+        # network_mode: "host"
+        environment:
+            - COMPOSER_HOME=${COMPOSER_HOME_DOCKER}
+        networks:
+            - default
+        restart: always
+        container_name: php81
+    php74:
+        build:
+            context: ./dockerfiles/php7.4
+            args:
+                PHP_VERSION: php:${PHP74_VERSION}
+                SOURCES_MIRRORS: ${SOURCES_MIRRORS}
+        image: ${PHP74_MAGE_IMAGE}
+        expose:
+            - "9000"
+        volumes: *phpvolumes
+        environment:
+            - COMPOSER_HOME=${COMPOSER_HOME_DOCKER}
+        # network_mode: "host"
+        networks:
+            - default
+        restart: always
+        container_name: php74
+    php72:
+        build:
+            context: ./dockerfiles/php7.2
+            args:
+                PHP_VERSION: php:${PHP72_VERSION}
+                SOURCES_MIRRORS: ${SOURCES_MIRRORS}
+        image: ${PHP72_MAGE_IMAGE}
+        expose:
+            - "9000"
+        volumes: *phpvolumes
+        environment:
+            - COMPOSER_HOME=${COMPOSER_HOME_DOCKER}
+        # network_mode: "host"
+        networks:
+            - default
+        restart: always
+        container_name: php72
+    app:
+        image: nginx:${NGINX_VERSION}
+        environment:
+            - TZ=${TZ}
+        ports:
+            - "${NGINX_PORT}:80"
+        # network_mode: "host"
+        networks:
+            - default
+        volumes:
+            # 挂载本机项目到`/var/www/html`中
+            - ${SOURCE_DIR}:/var/www/html
+            # 配置文件
+            - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ../config/nginx/fastcgi_params:/etc/nginx/fastcgi_params
+            - ./config/nginx/conf.d:/etc/nginx/conf.d
+            - ../log/nginx:/var/log/nginx
+        restart: always
+        container_name: app
+        depends_on:
+            - php81
+            - php74
+            - php72
+            # - db
+            # - redis
+            # - es
+networks:
+    default:
+volumes:
+    dbdata:
+    esdata:
+    redisdata:
+    rabbitmqdata:

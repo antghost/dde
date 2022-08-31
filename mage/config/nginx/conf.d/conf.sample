@@ -1,0 +1,7 @@
+server {
+  listen 80;
+  server_name magento.test;
+  set $MAGE_ROOT /var/www/html/magento;
+  set $FastCGI_PASS fastcgi_74;
+  include conf.d/public/mage244.conf;
+}
