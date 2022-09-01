@@ -16,13 +16,15 @@ sudo ./init.sh
 
 ## Usage
 
-Start Service
+Start Services
 
 ```bash
 # 启动所有服务
 sudo docker compose up -d
 # 启动指定服务
 sudo docker compose up -d <service>
+# 停止和删除所有服务
+sudo docker compose down
 ```
 
 exec docker container
@@ -32,4 +34,10 @@ exec docker container
 docker compose exec <container name> <command>
 # e.g. exec redis-cli
 docker compose exec redis redis-cli 
+```
+
+logs
+
+```bash
+sudo docker compose logs <service>
 ```

@@ -1,5 +1,5 @@
 ARG PHP_VERSION
-FROM ${PHP_VERSION}
+FROM php:${PHP_VERSION}
 
 COPY *.tgz /tmp/
 

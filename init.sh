@@ -8,4 +8,7 @@ echo 'Install Done'
 if [ ! -f "./mage/.env" ]; then
     sudo cp ./mage/.env.sample ./mage/.env
 fi
+if [ ! -f "./portainer/.env" ]; then
+    sudo cp ./portainer/.env.sample ./portainer/.env
+fi;
 echo 'Init Env file Done'
