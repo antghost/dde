@@ -1,14 +1,25 @@
 #!/bin/bash
 sudo chmod a+x ./*/*.sh
 # Install
-sudo ./install/docker.sh
-sudo ./install/composer.sh
+./install/composer.sh
+./install/docker.sh
 echo 'Install Done'
-# Copy env
+# Copy configure file
+# echo 'Configure file init';
+# Copy env file
 if [ ! -f "./mage/.env" ]; then
     sudo cp ./mage/.env.sample ./mage/.env
-fi
+fi;
 if [ ! -f "./portainer/.env" ]; then
     sudo cp ./portainer/.env.sample ./portainer/.env
 fi;
-echo 'Init Env file Done'
+if [ ! -f "./mysql/.env" ]; then
+    sudo cp ./mysql/.env.sample ./mysql/.env
+fi;
+if [ ! -f "./redis/.env" ]; then
+    sudo cp ./redis/.env.sample ./redis/.env
+fi;
+if [ ! -f "./rabbitmq/.env" ]; then
+    sudo cp ./rabbitmq/.env.sample ./rabbitmq/.env
+fi;
+echo 'ENV file init';

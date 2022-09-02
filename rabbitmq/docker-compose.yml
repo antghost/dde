@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+    rabbitmq:
+        image: rabbitmq:${RABBITMQ_VERSION}
+        ports:
+            - "${RABBITMQ_PORT_C}:5672"
+            - "${RABBITMQ_PORT_S}:15672"
+        volumes:
+            - data:/var/lib/rabbitmq
+        environment:
+            TZ: ${TZ}
+            RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+            RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+        networks:
+            - default
+        restart: always
+        container_name: rabbitmq
+networks:
+    default:
+volumes:
+    data:

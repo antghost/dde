@@ -82,16 +82,15 @@ services:
             &phpvolumes
             # 配置文件
             - ../config/php/php.ini:/usr/local/etc/php/php.ini
-            # 挂载本机`composer`执行文件和cache目录
+            # 挂载本机`composer`执行文件和home目录
             - /usr/local/bin/composer:/usr/local/bin/composer
-            - ${COMPOSER_HOME_WSL}:${COMPOSER_HOME_DOCKER}:cached
+            - ${COMPOSER_HOME}:/var/www/.composer:cached
             # 挂载本机项目到`/var/www/html`中
             - ${SOURCE_DIR}:/var/www/html
-            - ${SOURCE_DIR_WSL}:/var/www/wsl
         # network_mode: "host"
         environment:
             - TZ=${TZ}
-            - COMPOSER_HOME=${COMPOSER_HOME_DOCKER}
+            - COMPOSER_HOME=/var/www/.composer
         networks:
             - default
         restart: always
@@ -108,7 +107,7 @@ services:
         volumes: *phpvolumes
         environment:
             - TZ=${TZ}
-            - COMPOSER_HOME=${COMPOSER_HOME_DOCKER}
+            - COMPOSER_HOME=/var/www/.composer
         # network_mode: "host"
         networks:
             - default
@@ -126,7 +125,7 @@ services:
         volumes: *phpvolumes
         environment:
             - TZ=${TZ}
-            - COMPOSER_HOME=${COMPOSER_HOME_DOCKER}
+            - COMPOSER_HOME=/var/www/.composer
         # network_mode: "host"
         networks:
             - default
