@@ -1,25 +1,22 @@
 #!/bin/bash
 sudo chmod a+x ./*/*.sh
-# Install
+
+# 安装composer
 ./install/composer.sh
+# 安装docker
 ./install/docker.sh
 echo 'Install Done'
-# Copy configure file
-# echo 'Configure file init';
-# Copy env file
-if [ ! -f "./mage/.env" ]; then
-    sudo cp ./mage/.env.sample ./mage/.env
-fi;
-if [ ! -f "./portainer/.env" ]; then
-    sudo cp ./portainer/.env.sample ./portainer/.env
-fi;
-if [ ! -f "./mysql/.env" ]; then
-    sudo cp ./mysql/.env.sample ./mysql/.env
-fi;
-if [ ! -f "./redis/.env" ]; then
-    sudo cp ./redis/.env.sample ./redis/.env
-fi;
-if [ ! -f "./rabbitmq/.env" ]; then
-    sudo cp ./rabbitmq/.env.sample ./rabbitmq/.env
-fi;
+
+# 创建配置文件
+if [ ! -f "./mage/config/nginx/nginx.conf" ]; then
+    cp ./config/nginx/nginx.conf ./mage/config/nginx/nginx.conf
+fi
+echo 'Configure file init';
+
+# 创建'.env'文件
+for file in * ; do
+    if [ -d "$file" -a -f "./$file/.env.sample" -a ! -f "./$file/.env" ]; then
+        cp ./$file/.env.sample ./$file/.env;
+    fi
+done
 echo 'ENV file init';

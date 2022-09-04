@@ -1,10 +1,10 @@
 # Docker Development Environment (DDE)
 
-## Summary
+## 概述
 
 OS: Ubuntu
 
-## Init
+## 安装和初始化
 
 ```bash
 cd dde
@@ -12,11 +12,14 @@ sudo chmod a+x init.sh
 sudo ./init.sh
 ```
 
-## Env Setting
+## Env环境变量
 
-## Usage
+`.env`文件中配置环境变量
 
-Start Services
+## 容器操作
+> 进入`docker-compose.yml`所在目录下执行  
+
+创建和启动服务
 
 ```bash
 # 启动所有服务
@@ -27,16 +30,15 @@ sudo docker compose up -d <service>
 sudo docker compose down
 ```
 
-exec docker container
+进入容器
 
 ```bash
-# 进入docker-compose.yml所在目录下执行
-docker compose exec <container name> <command>
+docker compose exec <service> <command>
 # e.g. exec redis-cli
 docker compose exec redis redis-cli 
 ```
 
-logs
+查看容器日志
 
 ```bash
 sudo docker compose logs <service>
