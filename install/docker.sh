@@ -2,7 +2,7 @@
 [ -f "/usr/bin/docker" ] && echo 'Docker Installed' && exit
 
 # 更换软件源
-sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak2
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak`date +%Y%m%d%H%M`
 sudo sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 
 # Update the apt

@@ -72,7 +72,8 @@ exec.sh
 > 进入容器  
 
 ```bash
-./exec.sh <service>
+# 默认用户为：www-data
+./exec.sh <service> [<user>]
 ```
 
 magento.sh  
