@@ -4,6 +4,9 @@ server {
     set $MAGE_ROOT /var/www/html/magento;
     set $FastCGI_PASS fastcgi_74;
 
+    client_max_body_size 10m;
+    client_body_buffer_size 128k;
+
     access_log off;
     error_log /var/log/nginx/magento.test_error.log;
 
