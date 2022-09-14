@@ -1,11 +1,11 @@
 ARG PHP_VERSION
-FROM php:${PHP_VERSION}
+FROM php:${PHP_VERSION}-fpm
 
 COPY *.tgz /tmp/
 
 ARG SOURCES_MIRRORS
 RUN sed -i "s/deb.debian.org/${SOURCES_MIRRORS}/g" /etc/apt/sources.list \
-    && apt-get update && apt-get install -y \
+    && apt-get update && apt-get install -y --no-install-recommends \
         cron \
         gzip \
         libpng-dev \
