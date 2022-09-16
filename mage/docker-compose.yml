@@ -87,10 +87,11 @@ services:
             - ${COMPOSER_HOME}:/var/www/.composer:cached
             # 挂载本机项目到`/var/www/html`中
             - ${SOURCE_DIR}:/var/www/html
-        # network_mode: "host"
         environment:
             - TZ=${TZ}
             - COMPOSER_HOME=/var/www/.composer
+        extra_hosts: &appextrahosts
+            - "${MAGE_DOMAIN}:${DOCKER_IP}"
         networks:
             - default
         restart: always
@@ -108,7 +109,7 @@ services:
         environment:
             - TZ=${TZ}
             - COMPOSER_HOME=/var/www/.composer
-        # network_mode: "host"
+        extra_hosts: *appextrahosts
         networks:
             - default
         restart: always
