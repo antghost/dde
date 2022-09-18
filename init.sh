@@ -1,6 +1,5 @@
 #!/bin/bash
 echo 'Starting...';
-sudo chmod a+x ./*/*.sh
 
 # 安装composer
 ./install/composer.sh
