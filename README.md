@@ -8,8 +8,26 @@ OS: Ubuntu
 
 ```bash
 cd dde
-sudo chmod a+x init.sh
 sudo ./init.sh
+```
+
+Docker服务
+
+```bash
+# 启动
+sudo service docker start
+# 停止
+sudo service docker stop
+# 重启
+sudo service docker restart
+# 日志
+sudo tail -f /var/log/docker.log
+```
+
+允许当前用户访问Docker CLI，不必使用`sudo`  
+
+```bash
+sudo usermod -aG docker $USER
 ```
 
 ## Env环境变量
@@ -33,9 +51,9 @@ sudo docker compose down
 进入容器
 
 ```bash
-docker compose exec <service> <command>
+sudo docker compose exec <service> <command>
 # e.g. exec redis-cli
-docker compose exec redis redis-cli 
+sudo docker compose exec redis redis-cli 
 ```
 
 查看容器日志
