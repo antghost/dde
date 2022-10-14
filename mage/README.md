@@ -29,7 +29,7 @@ sudo docker compose up -d
 启动指定服务  
 
 ```bash
-sudo docker compose up -d <service>
+# sudo docker compose up -d <service>
 # e.g. 启动`app`服务
 sudo docker compose up -d app
 ```
@@ -51,17 +51,17 @@ sudo docker compose exec --help
 进入容器  
 
 ```bash
-sudo docker compose exec <service> bash|sh
+# sudo docker compose exec [-u <user>] <service> <bash|sh>
 # e.g. 进入service: 'php81' 容器
 sudo docker compose exec php81 bash
-# e.g. 指定用户进入容器
+# e.g. `-u <user>` 指定用户进入容器
 sudo docker compose exec -u www-data php81 bash
 ```
 
 不进入容器直接执行容器中命令
 
 ```bash
-sudo docker compose exec <service> <command>
+# sudo docker compose exec <service> <command>
 # e.g. 执行magento指令
 sudo docker compose -u www-data -w /var/www/html php81 bin/magento c:c
 ```
@@ -73,10 +73,13 @@ exec.sh
 
 ```bash
 # 默认用户为：www-data
-./exec.sh <service> [<user>]
+# ./exec.sh [<service>] [<user>]
+# e.g. 进入PHP7.4容器
+./exec.sh php74
 ```
 
 magento.sh  
+> 不进入容器直接执行`bin/magento`命令  
 
 - .env 中配置 `MAGENTO_SOURCE`, `MAGENTO_PHP_SERVICE`
 - `MAGENTO_SOURCE`: 代码目录
@@ -88,6 +91,7 @@ magento.sh
 ```
 
 nginx.sh
+> 不进入容器直接执行`nginx`命令  
 
 ```bash
 ./nginx.sh -s reload

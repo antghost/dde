@@ -2,16 +2,34 @@
 
 ## 概述
 
+基于Docker搭建的开发环境  
+
 OS: Ubuntu
 
-## 安装和初始化
+## 安装
+
+### WSL安装（可选）
+
+Windows中以管理员身份运行命令提示符(CMD)  
+
+```bash
+# 查看可安装的分发版本
+wsl -l -o
+# wsl --install -d <NAME>
+# e.g. 安装 Ubuntu-20.04
+wsl --install -d Ubuntu-20.04
+```
+
+### 初始化DDE  
 
 ```bash
 cd dde
 sudo ./init.sh
 ```
 
-Docker服务
+初始化完成后即可进入到各服务目录下启动容器使用  
+
+## Docker服务操作
 
 ```bash
 # 启动
@@ -51,7 +69,7 @@ sudo docker compose down
 进入容器
 
 ```bash
-sudo docker compose exec <service> <command>
+# sudo docker compose exec <service> <command>
 # e.g. exec redis-cli
 sudo docker compose exec redis redis-cli 
 ```
@@ -59,5 +77,7 @@ sudo docker compose exec redis redis-cli
 查看容器日志
 
 ```bash
-sudo docker compose logs <service>
+# sudo docker compose logs <service>
+# e.g. redis logs
+sudo docker compose logs redis
 ```
