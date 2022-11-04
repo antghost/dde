@@ -15,7 +15,7 @@
 - `Dockerfile`变化后可重新执行
 
 ```bash
-sudo docker composer build
+sudo docker compose build
 ```
 
 ### 创建和启动`docker-compose.yml`中服务
