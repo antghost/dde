@@ -2,6 +2,9 @@ server {
     listen 80;
     server_name magento.test;
     set $MAGE_ROOT /var/www/html/magento;
+    # 变量 $FastCGI_PASS 定义的是 fastcgi_pass 的值，该变量在 public/mage244.conf 中使用
+    # fastcgi 的配置查看当前目录下的 phpfastcgi.conf
+    # 例如 fastcgi_74 对应 PHP 7.4 版本，
     set $FastCGI_PASS fastcgi_74;
 
     client_max_body_size 10m;
@@ -10,5 +13,7 @@ server {
     access_log off;
     error_log /var/log/nginx/magento.test_error.log;
 
+    # public/mage194.conf: Magento 1.9.4 版本使用
+    # public/mage244.conf: Magento 2.4.4 及以上版本使用
     include conf.d/public/mage244.conf;
 }

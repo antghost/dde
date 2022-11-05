@@ -2,7 +2,7 @@
 
 ## 概述
 
-基于Docker搭建的开发环境  
+基于 Docker 搭建的开发环境  
 
 OS: Ubuntu
 
@@ -10,7 +10,7 @@ OS: Ubuntu
 
 ### WSL安装（可选）
 
-Windows中以管理员身份运行命令提示符(CMD)  
+Windows 中以管理员身份运行命令提示符(CMD)  
 
 ```bash
 # 查看可安装的分发版本
@@ -25,6 +25,13 @@ wsl --install -d Ubuntu-20.04
 ```bash
 cd dde
 sudo ./init.sh
+sudo service docker start
+```
+
+允许当前用户访问 Docker CLI，不必使用 `sudo`  
+
+```bash
+sudo usermod -aG docker $USER
 ```
 
 初始化完成后即可进入到各服务目录下启动容器使用  
@@ -42,18 +49,12 @@ sudo service docker restart
 sudo tail -f /var/log/docker.log
 ```
 
-允许当前用户访问Docker CLI，不必使用`sudo`  
-
-```bash
-sudo usermod -aG docker $USER
-```
-
 ## Env环境变量
 
-`.env`文件中配置环境变量
+`.env` 文件中配置环境变量
 
 ## 容器操作
-> 进入`docker-compose.yml`所在目录下执行  
+> 进入 `docker-compose.yml` 所在目录下执行  
 
 创建和启动服务
 
@@ -62,6 +63,8 @@ sudo usermod -aG docker $USER
 sudo docker compose up -d
 # 启动指定服务
 sudo docker compose up -d <service>
+# 查看已启动的服务
+sudo docker compose ps
 # 停止和删除所有服务
 sudo docker compose down
 ```
@@ -80,4 +83,10 @@ sudo docker compose exec redis redis-cli
 # sudo docker compose logs <service>
 # e.g. redis logs
 sudo docker compose logs redis
+```
+
+启动一个用完即焚的容器  
+
+```bash
+sudo docker run --rm -it -u www-data php:7.4.27-fpm bash
 ```
