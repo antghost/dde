@@ -18,25 +18,6 @@
 sudo docker compose build
 ```
 
-### Nginx 配置
-
-server 文件配置路径  
-
-```bash
-# 当前目录下
-config/nginx/conf.d
-```
-
-e.g. 配置 mage.test.com
-
-```bash
-cd config/nginx/conf.d
-cp conf.sample mage.test.com.conf
-# 修改 mage.test.com.conf 中 server_name, $MAGE_ROOT, error_log ...
-# 回退到 mage 目录下执行 nginx.sh 脚本
-./nginx.sh -s reload
-```
-
 ### 创建和启动 `docker-compose.yml` 中服务
 
 启动所有服务
@@ -63,6 +44,25 @@ sudo docker compose ps
 
 ```bash
 sudo docker compose down
+```
+
+### Nginx 配置
+
+server 文件配置路径  
+
+```bash
+# 当前目录下
+config/nginx/conf.d
+```
+
+e.g. 配置 mage.test.com
+
+```bash
+cd config/nginx/conf.d
+cp conf.sample mage.test.com.conf
+# 修改 mage.test.com.conf 中 server_name, $MAGE_ROOT, error_log ...
+# 回退到 mage 目录下执行 nginx.sh 脚本
+./nginx.sh -s reload
 ```
 
 ### 容器操作

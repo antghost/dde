@@ -26,6 +26,6 @@ echo \
     \"dns\": [\"8.8.8.8\", \"223.5.5.5\", \"114.114.114.114\"]
 }" | sudo tee /etc/docker/daemon.json > /dev/null
 
-# Restart docker
-sudo service docker restart
+# Start docker
+sudo service docker start
 echo 'Install Docker Done.'
