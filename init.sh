@@ -10,18 +10,22 @@ echo 'Starting...';
 ## Nginx
 echo 'Configure file init';
 if [ ! -f "./mage/config/nginx/nginx.conf" ]; then
+    mkdir -p ./mage/config/nginx
     cp ./config/nginx/nginx.conf ./mage/config/nginx/nginx.conf
 fi
 ## PHP
 if [ ! -f "./mage/config/php/php.ini" ]; then
+    mkdir -p ./mage/config/php
     cp ./config/php/php.ini ./mage/config/php/php.ini
 fi
 ## es
 if [ ! -f "./mage/config/es/elasticsearch.yml" ]; then
+    mkdir -p ./mage/config/es
     cp ./config/es/elasticsearch.yml ./mage/config/es/elasticsearch.yml
 fi
 ## Redis
 if [ ! -f "./mage/config/redis/redis.conf" ]; then
+    mkdir -p ./mage/config/redis
     cp ./config/redis/redis.conf ./mage/config/redis/redis.conf
 fi
 if [ ! -f "./redis/redis.conf" ]; then

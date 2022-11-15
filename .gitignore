@@ -9,3 +9,4 @@ mage/config/es/*
 mage/config/rabbitmq/*
 mysql/conf.d/*
 redis/*.conf
+!.gitkeep
