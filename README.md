@@ -79,9 +79,19 @@ sudo docker compose exec redis redis-cli
 
 查看容器日志
 
+- docker logs  
+
+```bash
+# sudo docker logs <container>
+# e.g. container name 'mysql8' logs
+sudo docker logs mysql8
+```
+
+- docker compose logs  
+
 ```bash
 # sudo docker compose logs <service>
-# e.g. redis logs
+# e.g. service 'redis' logs
 sudo docker compose logs redis
 ```
 

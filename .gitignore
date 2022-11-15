@@ -2,3 +2,10 @@
 .idea
 *.log
 .env
+mage/config/mysql/conf.d/*
+mage/config/php/*
+mage/config/redis/*
+mage/config/es/*
+mage/config/rabbitmq/*
+mysql/conf.d/*
+redis/*.conf

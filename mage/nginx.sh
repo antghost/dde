@@ -1,2 +1,2 @@
 #!/bin/bash
-docker compose exec app nginx "$@"
+sudo docker compose exec app nginx "$@"

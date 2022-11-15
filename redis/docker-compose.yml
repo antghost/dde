@@ -6,7 +6,7 @@ services:
             - "${REDIS_PORT}:6379"
         volumes:
             - data:/data/:rw
-            - ../config/redis/redis.conf:/etc/redis.conf:rw
+            - ./redis.conf:/etc/redis.conf:rw
         environment:
             - TZ=${TZ}
         entrypoint: [ "redis-server", "/etc/redis.conf" ]

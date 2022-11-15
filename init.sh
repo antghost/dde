@@ -7,9 +7,25 @@ echo 'Starting...';
 ./install/docker.sh
 
 # 创建配置文件
+## Nginx
 echo 'Configure file init';
 if [ ! -f "./mage/config/nginx/nginx.conf" ]; then
     cp ./config/nginx/nginx.conf ./mage/config/nginx/nginx.conf
+fi
+## PHP
+if [ ! -f "./mage/config/php/php.ini" ]; then
+    cp ./config/php/php.ini ./mage/config/php/php.ini
+fi
+## es
+if [ ! -f "./mage/config/es/elasticsearch.yml" ]; then
+    cp ./config/es/elasticsearch.yml ./mage/config/es/elasticsearch.yml
+fi
+## Redis
+if [ ! -f "./mage/config/redis/redis.conf" ]; then
+    cp ./config/redis/redis.conf ./mage/config/redis/redis.conf
+fi
+if [ ! -f "./redis/redis.conf" ]; then
+    cp ./config/redis/redis.conf ./redis/redis.conf
 fi
 
 # 创建'.env'文件
