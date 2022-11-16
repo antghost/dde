@@ -25,4 +25,4 @@ RUN sed -i "s/deb.debian.org/${SOURCES_MIRRORS}/g" /etc/apt/sources.list \
     && docker-php-ext-configure gd --with-freetype-dir --with-jpeg-dir \
     && docker-php-ext-install -j"$(nproc)" gd zip exif soap intl bcmath xsl sockets mysqli pdo_mysql opcache \
     && rm -r /tmp/pear && rm -r /tmp/*.tgz
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+RUN cp "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
