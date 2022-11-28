@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+
+  wordpress:
+    image: wordpress:${WORDPRESS_VERSION}
+    restart: always
+    expose:
+      - "9000"
+    environment:
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      TZ: ${TZ}
+    volumes:
+      - ${WORDPRESS_SRC}:/var/www/html
+    networks:
+      - default
+    container_name: wp
+
+  web:
+    image: nginx:${NGINX_VERSION}
+    ports:
+      - "${NGINX_PORT}:80"
+    volumes:
+      - ${WORDPRESS_SRC}:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ../log/nginx/wordpress:/var/log/nginx
+    environment:
+      - TZ=${TZ}
+    networks:
+      - default
+    restart: always
+    container_name: web
+    depends_on:
+      - wordpress
+
+networks:
+  default:
+volumes:
+  data:
