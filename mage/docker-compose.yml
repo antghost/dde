@@ -128,7 +128,7 @@ services:
         environment:
             - TZ=${TZ}
             - COMPOSER_HOME=/var/www/.composer
-        # network_mode: "host"
+        extra_hosts: *appextrahosts
         networks:
             - default
         restart: always
@@ -137,6 +137,7 @@ services:
         image: nginx:${NGINX_VERSION}
         ports:
             - "${NGINX_PORT}:80"
+            - "${NGINX_SSL_PORT}:443"
         volumes:
             # 挂载本机项目到`/var/www/html`中
             - ${SOURCE_DIR}:/var/www/html

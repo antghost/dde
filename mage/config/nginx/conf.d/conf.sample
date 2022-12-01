@@ -1,5 +1,9 @@
 server {
     listen 80;
+    # listen 443 ssl;
+    # ssl_certificate     conf.d/magento.test.crt;
+    # ssl_certificate_key conf.d/magento.test.key;
+
     server_name magento.test;
     set $MAGE_ROOT /var/www/html/magento;
     # 变量 $FastCGI_PASS 定义的是 fastcgi_pass 的值，该变量在 public/mage244.conf 中使用

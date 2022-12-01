@@ -100,3 +100,15 @@ sudo docker compose logs redis
 ```bash
 sudo docker run --rm -it -u www-data php:7.4.27-fpm bash
 ```
+
+## HTTP
+
+创建个人域名 SSL 证书
+
+```bash
+# Ubuntu
+# 将域名 woo.wp.test 替换成你的
+openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes \
+  -keyout woo.wp.test.key -out woo.wp.test.crt -subj "/CN=woo.wp.test" \
+  -addext "subjectAltName=DNS:woo.wp.test,IP:127.0.0.1"
+```

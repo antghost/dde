@@ -2,6 +2,8 @@
 .idea
 *.log
 .env
+*.crt
+*.key
 mage/config/mysql/conf.d/*
 mage/config/php/*
 mage/config/redis/*
