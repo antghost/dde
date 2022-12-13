@@ -30,8 +30,8 @@ sudo docker compose up -d
 
 ```bash
 # sudo docker compose up -d <service>
-# e.g. 启动 `app` 服务
-sudo docker compose up -d app
+# e.g. 启动 `nginx` 服务
+sudo docker compose up -d nginx
 ```
 
 查看已启动的服务
@@ -92,6 +92,14 @@ sudo docker compose -u www-data -w /var/www/html php81 bin/magento c:c
 ```
 
 ### 脚本使用
+
+脚本执行提示无权限，使用 `sudo` 执行或添加当前用户到 `docker` 组中  
+> 查看 dde/README.md > 允许当前用户访问 Docker CLI  
+
+```bash
+# 使用 `sudo` 执行
+sudo ./exec.sh
+```
 
 exec.sh  
 > 进入容器  

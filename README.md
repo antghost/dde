@@ -32,6 +32,10 @@ sudo service docker start
 
 ```bash
 sudo usermod -aG docker $USER
+# 如果以上操作完还是提示无权限，执行以下操作
+echo "export DOCKER_HOST='unix:///var/run/docker.sock'" >> ~/.bashrc
+# 使配置生效
+. ~/.bashrc
 ```
 
 初始化完成后即可进入到各服务目录下启动容器使用  
