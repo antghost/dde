@@ -4,11 +4,11 @@
 .env
 *.crt
 *.key
-mage/config/mysql/conf.d/*
-mage/config/php/*
-mage/config/redis/*
-mage/config/es/*
-mage/config/rabbitmq/*
+magento/config/mysql/conf.d/*
+magento/config/php/*
+magento/config/redis/*
+magento/config/es/*
+magento/config/rabbitmq/*
 mysql/conf.d/*
 redis/*.conf
 !.gitkeep

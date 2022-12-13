@@ -6,8 +6,6 @@ services:
     restart: always
     expose:
       - "9000"
-    ports:
-      - "${WP_PHP_PORT}:9000"
     environment:
       WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
       WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
@@ -21,7 +19,7 @@ services:
       - default
     container_name: wp
 
-  web:
+  nginx:
     image: nginx:${NGINX_VERSION}
     ports:
       - "${NGINX_PORT}:80"
@@ -36,7 +34,7 @@ services:
     networks:
       - default
     restart: always
-    container_name: web
+    container_name: wp-nginx
     depends_on:
       - wp
 

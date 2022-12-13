@@ -8,25 +8,26 @@ echo 'Starting...';
 
 # 创建配置文件
 ## Nginx
+mage_config_dir=./magento/config;
 echo 'Configure file init';
-if [ ! -f "./mage/config/nginx/nginx.conf" ]; then
-    mkdir -p ./mage/config/nginx
-    cp ./config/nginx/nginx.conf ./mage/config/nginx/nginx.conf
+if [ ! -f "$mage_config_dir/nginx/nginx.conf" ]; then
+    mkdir -p $mage_config_dir/nginx
+    cp ./config/nginx/nginx.conf $mage_config_dir/nginx/nginx.conf
 fi
 ## PHP
-if [ ! -f "./mage/config/php/php.ini" ]; then
-    mkdir -p ./mage/config/php
-    cp ./config/php/php.ini ./mage/config/php/php.ini
+if [ ! -f "$mage_config_dir/php/php.ini" ]; then
+    mkdir -p $mage_config_dir/php
+    cp ./config/php/php.ini $mage_config_dir/php/php.ini
 fi
 ## es
-if [ ! -f "./mage/config/es/elasticsearch.yml" ]; then
-    mkdir -p ./mage/config/es
-    cp ./config/es/elasticsearch.yml ./mage/config/es/elasticsearch.yml
+if [ ! -f "$mage_config_dir/es/elasticsearch.yml" ]; then
+    mkdir -p $mage_config_dir/es
+    cp ./config/es/elasticsearch.yml $mage_config_dir/es/elasticsearch.yml
 fi
 ## Redis
-if [ ! -f "./mage/config/redis/redis.conf" ]; then
-    mkdir -p ./mage/config/redis
-    cp ./config/redis/redis.conf ./mage/config/redis/redis.conf
+if [ ! -f "$mage_config_dir/redis/redis.conf" ]; then
+    mkdir -p $mage_config_dir/redis
+    cp ./config/redis/redis.conf $mage_config_dir/redis/redis.conf
 fi
 if [ ! -f "./redis/redis.conf" ]; then
     cp ./config/redis/redis.conf ./redis/redis.conf

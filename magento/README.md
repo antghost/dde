@@ -2,7 +2,7 @@
 
 ## 使用方法
 
-以下操作均需要在 `mage` 目录下执行
+以下操作均需要在 `magento` 目录下执行
 
 ### 初始化  
 
@@ -61,7 +61,7 @@ e.g. 配置 mage.test.com
 cd config/nginx/conf.d
 cp conf.sample mage.test.com.conf
 # 修改 mage.test.com.conf 中 server_name, $MAGE_ROOT, error_log ...
-# 回退到 mage 目录下执行 nginx.sh 脚本
+# 回退到 magento 目录下执行 nginx.sh 脚本
 ./nginx.sh -s reload
 ```
 
