@@ -11,4 +11,5 @@ magento/config/es/*
 magento/config/rabbitmq/*
 mysql/conf.d/*
 redis/*.conf
+docker-compose.yml
 !.gitkeep

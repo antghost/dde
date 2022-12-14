@@ -33,11 +33,14 @@ if [ ! -f "./redis/redis.conf" ]; then
     cp ./config/redis/redis.conf ./redis/redis.conf
 fi
 
-# 创建'.env'文件
-echo 'ENV file init';
+# 创建 docker-compose 文件
+echo 'docker-compose && env file init';
 for file in * ; do
     if [ -d "$file" -a -f "./$file/.env.sample" -a ! -f "./$file/.env" ]; then
         cp ./$file/.env.sample ./$file/.env;
+    fi
+    if [ -d "$file" -a -f "./$file/docker-compose.sample.yml" -a ! -f "./$file/docker-compose.yml" ]; then
+        cp ./$file/docker-compose.sample.yml ./$file/docker-compose.yml;
     fi
 done
 echo 'Done.'
