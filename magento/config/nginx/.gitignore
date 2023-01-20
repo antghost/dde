@@ -1,3 +1,4 @@
-*.conf
+*
 !conf.d/phpfastcgi.conf
+!conf.d/conf.sample
 !conf.d/public/mage[0-9]*.conf
