@@ -5,7 +5,9 @@ services:
         ports:
             - "${MYSQL_PORT}:3306"
         volumes:
-            - dbdata:/var/lib/mysql
+            - ${DATA_DIR}/mysql:/var/lib/mysql
+            # 使用数据卷, 把下一行的注释去掉，把上一行注释掉
+            # - dbdata:/var/lib/mysql
             - ./config/mysql/conf.d:/etc/mysql/conf.d:rw
         environment:
             TZ: ${TZ}
@@ -28,7 +30,9 @@ services:
             - "${RABBITMQ_PORT_C}:5672"
             - "${RABBITMQ_PORT_S}:15672"
         volumes:
-            - rabbitmqdata:/var/lib/rabbitmq
+            - ${DATA_DIR}/rabbitmq:/var/lib/rabbitmq
+            # 使用数据卷, 把下一行的注释去掉，把上一行注释掉
+            # - rabbitmqdata:/var/lib/rabbitmq
         environment:
             TZ: ${TZ}
             RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
@@ -42,7 +46,9 @@ services:
         ports:
             - "${REDIS_PORT}:6379"
         volumes:
-            - redisdata:/data/:rw
+            - ${DATA_DIR}/redis:/data
+            # 使用数据卷, 把下一行的注释去掉，把上一行注释掉
+            # - redisdata:/data
             - ./config/redis/redis.conf:/etc/redis.conf:rw
         environment:
             - TZ=${TZ}
@@ -59,7 +65,9 @@ services:
             - "${ES_PORT_C}:9200"
             - "${ES_PORT_S}:9300"
         volumes:
-            - esdata:/usr/share/elasticsearch/data
+            - ${DATA_DIR}/es:/usr/share/elasticsearch/data
+            # 使用数据卷, 把下一行的注释去掉，把上一行注释掉
+            # - esdata:/usr/share/elasticsearch/data
             - ./config/es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
         environment:
             - TZ=${TZ}

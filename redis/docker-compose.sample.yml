@@ -5,7 +5,9 @@ services:
         ports:
             - "${REDIS_PORT}:6379"
         volumes:
-            - data:/data/:rw
+            - ${DATA_DIR}:/data
+            # 使用数据卷, 把下一行的注释去掉，把上一行注释掉
+            # - data:/data
             - ./redis.conf:/etc/redis.conf:rw
         environment:
             - TZ=${TZ}

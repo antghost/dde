@@ -5,7 +5,9 @@ services:
         ports:
             - "${MYSQL_PORT}:3306"
         volumes:
-            - data:/var/lib/mysql
+            - ${DATA_DIR}:/var/lib/mysql
+            # 使用数据卷, 把下一行的注释去掉，把上一行注释掉
+            # - data:/var/lib/mysql
             - ./conf.d:/etc/mysql/conf.d:rw
         environment:
             TZ: ${TZ}
