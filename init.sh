@@ -15,10 +15,10 @@ if [ ! -f "$mage_config_dir/nginx/nginx.conf" ]; then
     cp ./config/nginx/nginx.conf $mage_config_dir/nginx/nginx.conf
 fi
 ## PHP
-if [ ! -f "$mage_config_dir/php/php.ini" ]; then
+if [ ! -d "$mage_config_dir/php" ]; then
     mkdir -p $mage_config_dir/php
-    cp ./config/php/php.ini $mage_config_dir/php/php.ini
 fi
+cp -n ./config/php/* $mage_config_dir/php
 ## es
 if [ ! -f "$mage_config_dir/es/elasticsearch.yml" ]; then
     mkdir -p $mage_config_dir/es
@@ -36,11 +36,11 @@ fi
 # 创建 docker-compose 文件
 echo 'docker-compose && env file init';
 for file in * ; do
-    if [ -d "$file" -a -f "./$file/.env.sample" -a ! -f "./$file/.env" ]; then
-        cp ./$file/.env.sample ./$file/.env;
+    if [ -d "$file" -a -f "./$file/.env.example" -a ! -f "./$file/.env" ]; then
+        cp ./$file/.env.example ./$file/.env;
     fi
-    if [ -d "$file" -a -f "./$file/docker-compose.sample.yml" -a ! -f "./$file/docker-compose.yml" ]; then
-        cp ./$file/docker-compose.sample.yml ./$file/docker-compose.yml;
+    if [ -d "$file" -a -f "./$file/docker-compose.example.yml" -a ! -f "./$file/docker-compose.yml" ]; then
+        cp ./$file/docker-compose.example.yml ./$file/docker-compose.yml;
     fi
 done
 echo 'Done.'

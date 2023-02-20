@@ -90,7 +90,8 @@ services:
             # &phpvolumes `YAML语法`内容赋值给phpvolumes变量; 引用变量：*phpvolumes
             &phpvolumes
             # 配置文件
-            - ./config/php/php.ini:/usr/local/etc/php/php.ini
+            - ./config/php/custom-php.ini:/usr/local/etc/php/conf.d/php.ini
+            - ./config/php/custom-php-fpm.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
             # 挂载本机`composer`执行文件和home目录
             - /usr/local/bin/composer:/usr/local/bin/composer
             - ${COMPOSER_HOME}:/var/www/.composer:cached
