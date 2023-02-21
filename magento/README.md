@@ -59,7 +59,7 @@ e.g. 配置 mage.test.com
 
 ```bash
 cd config/nginx/conf.d
-cp conf.sample mage.test.com.conf
+cp conf.example mage.test.com.conf
 # 修改 mage.test.com.conf 中 server_name, $MAGE_ROOT, error_log ...
 # 回退到 magento 目录下执行 nginx.sh 脚本
 ./nginx.sh -s reload
