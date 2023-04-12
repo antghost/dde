@@ -23,6 +23,6 @@ RUN sed -i "s/deb.debian.org/${SOURCES_MIRRORS}/g" /etc/apt/sources.list \
     && pecl install /tmp/mcrypt-1.0.3.tgz \
     && docker-php-ext-enable redis mcrypt \
     && docker-php-ext-configure gd --with-freetype-dir --with-jpeg-dir \
-    && docker-php-ext-install -j"$(nproc)" gd zip exif soap intl bcmath xsl sockets mysqli pdo_mysql opcache \
+    && docker-php-ext-install -j"$(nproc)" gd zip exif soap intl bcmath xsl sockets mysqli pdo_mysql opcache pcntl \
     && rm -r /tmp/pear && rm -r /tmp/*.tgz
 RUN cp "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
