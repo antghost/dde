@@ -16,6 +16,8 @@
 
 ```bash
 sudo docker compose build
+# 不使用缓存
+sudo docker compose build --no-cache --pull
 ```
 
 ### 创建和启动 `docker-compose.yml` 中服务

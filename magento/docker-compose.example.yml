@@ -79,7 +79,8 @@ services:
         container_name: magento-es
     php81:
         build:
-            context: ./dockerfiles/php8.1
+            context: ./dockerfiles
+            dockerfile: ./php8/Dockerfile
             args:
                 PHP_VERSION: ${PHP81_VERSION}
                 SOURCES_MIRRORS: ${SOURCES_MIRRORS}
@@ -106,9 +107,26 @@ services:
             - default
         restart: always
         container_name: magento-php81
+    php82:
+        build:
+            context: ./dockerfiles
+            dockerfile: ./php8/Dockerfile
+            args:
+                PHP_VERSION: ${PHP82_VERSION}
+                SOURCES_MIRRORS: ${SOURCES_MIRRORS}
+        image: ${PHP82_MAGE_IMAGE}
+        expose:
+            - "9000"
+        volumes: *phpvolumes
+        extra_hosts: *appextrahosts
+        networks:
+            - default
+        restart: always
+        container_name: magento-php82  
     php74:
         build:
-            context: ./dockerfiles/php7.4
+            context: ./dockerfiles
+            dockerfile: ./php7.4/Dockerfile
             args:
                 PHP_VERSION: ${PHP74_VERSION}
                 SOURCES_MIRRORS: ${SOURCES_MIRRORS}
@@ -126,7 +144,8 @@ services:
         container_name: magento-php74
     php72:
         build:
-            context: ./dockerfiles/php7.2
+            context: ./dockerfiles
+            dockerfile: ./php7.2/Dockerfile
             args:
                 PHP_VERSION: ${PHP72_VERSION}
                 SOURCES_MIRRORS: ${SOURCES_MIRRORS}

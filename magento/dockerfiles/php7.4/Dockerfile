@@ -1,7 +1,7 @@
 ARG PHP_VERSION
 FROM php:${PHP_VERSION}-fpm
 
-COPY *.tgz /tmp/
+COPY ./php-ext/*.tgz /tmp/
 
 ARG SOURCES_MIRRORS
 RUN sed -i "s/deb.debian.org/${SOURCES_MIRRORS}/g" /etc/apt/sources.list \
@@ -18,11 +18,15 @@ RUN sed -i "s/deb.debian.org/${SOURCES_MIRRORS}/g" /etc/apt/sources.list \
 		libjpeg62-turbo-dev \
 		libpng-dev \
 		zip \
+        imagemagick \
+        libmagickwand-dev \
     && apt-get clean \
-    && pecl install /tmp/redis-5.1.1.tgz \
-    && pecl install /tmp/mcrypt-1.0.3.tgz \
-    && pecl install /tmp/swoole-4.6.1.tgz \
-    && docker-php-ext-enable redis mcrypt swoole \
+    && pecl install /tmp/redis-5.3.7.tgz \
+    && pecl install /tmp/mcrypt-1.0.6.tgz \
+    && pecl install /tmp/swoole-4.8.13.tgz \
+    && pecl install /tmp/imagick-3.7.0.tgz \
+    && pecl install /tmp/xdebug-3.1.6.tgz \
+    && docker-php-ext-enable redis mcrypt swoole imagick xdebug \
 	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j"$(nproc)" gd zip exif soap intl bcmath xsl sockets mysqli pdo_mysql opcache pcntl \
     && rm -r /tmp/pear && rm -r /tmp/*.tgz
