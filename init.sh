@@ -36,8 +36,8 @@ fi
 # 创建 docker-compose 文件
 echo 'docker-compose && env file init';
 for file in * ; do
-    if [ -d "$file" -a -f "./$file/example.env" -a ! -f "./$file/.env" ]; then
-        cp ./$file/example.env ./$file/.env;
+    if [ -d "$file" -a -f "./$file/env.example" -a ! -f "./$file/.env" ]; then
+        cp ./$file/env.example ./$file/.env;
     fi
     if [ -d "$file" -a -f "./$file/docker-compose.example.yml" -a ! -f "./$file/docker-compose.yml" ]; then
         cp ./$file/docker-compose.example.yml ./$file/docker-compose.yml;
