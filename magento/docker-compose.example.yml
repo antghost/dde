@@ -118,6 +118,9 @@ services:
         expose:
             - "9000"
         volumes: *phpvolumes
+        environment:
+            - TZ=${TZ}
+            - COMPOSER_HOME=/var/www/.composer
         extra_hosts: *appextrahosts
         networks:
             - default

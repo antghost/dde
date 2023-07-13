@@ -21,12 +21,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libjpeg-dev \
         libmcrypt-dev \
         libxml2-dev \
-		libzip-dev \
-		libxslt-dev \
-		libfreetype6-dev \
-		libjpeg62-turbo-dev \
-		libpng-dev \
-		zip \
+        libzip-dev \
+        libxslt-dev \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+        zip \
         imagemagick \
         libmagickwand-dev \
     && apt-get clean \
@@ -36,7 +36,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && pecl install /tmp/imagick-3.7.0.tgz \
     && pecl install /tmp/xdebug-3.2.1.tgz \
     && docker-php-ext-enable redis mcrypt swoole imagick xdebug \
-	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j"$(nproc)" gd zip exif soap intl bcmath xsl sockets mysqli pdo_mysql opcache pcntl \
     && rm -r /tmp/pear && rm -r /tmp/*.tgz
 RUN cp "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"

@@ -12,12 +12,12 @@ RUN sed -i "s/deb.debian.org/${SOURCES_MIRRORS}/g" /etc/apt/sources.list \
         libjpeg-dev \
         libmcrypt-dev \
         libxml2-dev \
-		libzip-dev \
-		libxslt-dev \
-		libfreetype6-dev \
-		libjpeg62-turbo-dev \
-		libpng-dev \
-		zip \
+        libzip-dev \
+        libxslt-dev \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+        zip \
         imagemagick \
         libmagickwand-dev \
     && apt-get clean \
