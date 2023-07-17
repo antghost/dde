@@ -49,7 +49,7 @@ services:
             - ${DATA_DIR}/redis:/data
             # 使用数据卷, 把下一行的注释去掉，把上一行注释掉
             # - redisdata:/data
-            - ./config/redis/redis.conf:/etc/redis.conf:rw
+            - ./config/redis/redis-${REDIS_VERSION}.conf:/etc/redis.conf:rw
         environment:
             - TZ=${TZ}
         entrypoint: [ "redis-server", "/etc/redis.conf" ]

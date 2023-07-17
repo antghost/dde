@@ -25,13 +25,9 @@ if [ ! -f "$mage_config_dir/es/elasticsearch.yml" ]; then
     cp ./config/es/elasticsearch.yml $mage_config_dir/es/elasticsearch.yml
 fi
 ## Redis
-if [ ! -f "$mage_config_dir/redis/redis.conf" ]; then
-    mkdir -p $mage_config_dir/redis
-    cp ./config/redis/redis.conf $mage_config_dir/redis/redis.conf
-fi
-if [ ! -f "./redis/redis.conf" ]; then
-    cp ./config/redis/redis.conf ./redis/redis.conf
-fi
+mkdir -p $mage_config_dir/redis
+cp -n ./config/redis/*.conf $mage_config_dir/redis/
+cp -n ./config/redis/*.conf ./redis/
 
 # 创建 docker-compose 文件
 echo 'docker-compose && env file init';
