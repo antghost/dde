@@ -4,6 +4,9 @@
 .env
 *.crt
 *.key
+*.pem
+**/data
+**/logs
 magento/config/mysql/conf.d/*
 magento/config/php/*
 magento/config/redis/*

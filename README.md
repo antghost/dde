@@ -4,55 +4,79 @@
 
 基于 Docker 搭建的开发环境  
 
-OS: Ubuntu
-
 ## 安装
 
-### WSL安装（可选）
+### Linux
 
-Windows 中以管理员身份运行命令提示符(CMD)  
+安装 docker  
+
+```bash
+curl -fsSL https://get.docker.com | sh
+```
+
+### WSL
+
+安装 WSL  
+- Windows 中以管理员身份运行命令提示符(CMD)  
 
 ```bash
 # 查看可安装的分发版本
 wsl -l -o
 # wsl --install -d <NAME>
-# e.g. 安装 Ubuntu-20.04
-wsl --install -d Ubuntu-20.04
+# e.g. 安装 Ubuntu-22.04
+wsl --install -d Ubuntu-22.04
 ```
 
-### 初始化DDE  
+安装 docker
 
 ```bash
+# 在 wsl 中
 cd dde
-sudo ./init.sh
-sudo service docker start
+./install/docker.sh
 ```
 
-允许当前用户访问 Docker CLI，不必使用 `sudo`  
+### 不需要 `sudo` 执行 `docker` 命令
+
+将当前用户添加到 `docker` 组中  
+
+- ubutntu  
 
 ```bash
 sudo usermod -aG docker $USER
 newgrp docker
 ```
 
-初始化完成后即可进入到各服务目录下启动容器使用  
+- centos  
 
-## Docker服务操作
+```bash
+sudo gpasswd -a $USER docker
+newgrp docker
+```
+
+### 初始化 DDE  
+
+```bash
+cd dde
+./init.sh
+```
+
+## Env 环境变量
+
+`.env` 文件中配置环境变量  
+> 可直接选择已配置的默认值  
+
+## Docker 服务操作
 
 ```bash
 # 启动
-sudo service docker start
+sudo systemctl start docker
 # 停止
-sudo service docker stop
+sudo systemctl stop docker
 # 重启
-sudo service docker restart
+sudo systemctl restart docker
 # 日志
 sudo tail -f /var/log/docker.log
 ```
-
-## Env环境变量
-
-`.env` 文件中配置环境变量
 
 ## 容器操作
 > 进入 `docker-compose.yml` 所在目录下执行  
@@ -61,21 +85,21 @@ sudo tail -f /var/log/docker.log
 
 ```bash
 # 启动所有服务
-sudo docker compose up -d
+docker compose up -d
 # 启动指定服务
-sudo docker compose up -d <service>
+docker compose up -d <service>
 # 查看已启动的服务
-sudo docker compose ps
+docker compose ps
 # 停止和删除所有服务
-sudo docker compose down
+docker compose down
 ```
 
 进入容器
 
 ```bash
-# sudo docker compose exec <service> <command>
+# docker compose exec <service> <command>
 # e.g. exec redis-cli
-sudo docker compose exec redis redis-cli 
+docker compose exec redis redis-cli 
 ```
 
 查看容器日志
@@ -83,23 +107,23 @@ sudo docker compose exec redis redis-cli
 - docker logs  
 
 ```bash
-# sudo docker logs <container>
+# docker logs <container>
 # e.g. container name 'mysql8' logs
-sudo docker logs mysql8
+docker logs mysql8
 ```
 
 - docker compose logs  
 
 ```bash
-# sudo docker compose logs <service>
+# docker compose logs <service>
 # e.g. service 'redis' logs
-sudo docker compose logs redis
+docker compose logs redis
 ```
 
 启动一个用完即焚的容器  
 
 ```bash
-sudo docker run --rm -it -u www-data php:7.4.27-fpm bash
+docker run --rm -it -u www-data php:7.4-fpm bash
 ```
 
 ## HTTP

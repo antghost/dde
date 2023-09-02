@@ -3,10 +3,10 @@
 
 # https://docs.docker.com/engine/install/ubuntu/
 # Update the apt
-sudo apt-get update && sudo apt-get install -y ca-certificates curl gnupg lsb-release
+sudo apt-get update -y && sudo apt-get install -y ca-certificates curl gnupg
 
 # Add Docker’s official GPG key:
-sudo mkdir -p /etc/apt/keyrings
+sudo install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 if [ ! -f "/etc/apt/keyrings/docker.gpg" ]; then
     echo 'Error: Add Docker GPG key failed.'
@@ -20,7 +20,7 @@ echo \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # Install Docker Engine
-sudo apt-get update && sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo apt-get update -y && sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # 镜像加速
 sudo mkdir -p /etc/docker
@@ -31,7 +31,7 @@ echo \
 
 # Start docker
 if [ -f "/usr/bin/docker" ]; then
-    sudo service docker start
+    sudo service docker restart
     echo 'Install Docker Done.'
 else
     echo 'Error: Install Docker failed.'

@@ -2,7 +2,14 @@
 
 ## 使用方法
 
-以下操作均需要在 `magento` 目录下执行
+安装 composer
+
+```bash
+cd dde
+./install/composer.sh
+```
+
+**以下操作均需要在 `magento` 目录下执行**
 
 ### 初始化  
 
@@ -15,9 +22,11 @@
 - `Dockerfile` 变化后可重新执行
 
 ```bash
-sudo docker compose build
+docker compose build
 # 不使用缓存
-sudo docker compose build --no-cache --pull
+# docker compose build --no-cache --pull
+# 指定 php 服务
+# docker compose build php81
 ```
 
 ### 创建和启动 `docker-compose.yml` 中服务
@@ -25,27 +34,27 @@ sudo docker compose build --no-cache --pull
 启动所有服务
 
 ```bash
-sudo docker compose up -d
+docker compose up -d
 ```
 
 启动指定服务  
 
 ```bash
-# sudo docker compose up -d <service>
+# docker compose up -d <service>
 # e.g. 启动 `nginx` 服务
-sudo docker compose up -d nginx
+docker compose up -d nginx
 ```
 
 查看已启动的服务
 
 ```bash
-sudo docker compose ps
+docker compose ps
 ```
 
 关闭所有服务  
 
 ```bash
-sudo docker compose down
+docker compose down
 ```
 
 ### Nginx 配置
@@ -72,36 +81,28 @@ cp conf.example mage.test.com.conf
 用法  
 
 ```bash
-sudo docker compose exec --help
+docker compose exec --help
 ```
 
 进入容器  
 
 ```bash
-# sudo docker compose exec [-u <user>] <service> <bash|sh>
+# docker compose exec [-u <user>] <service> <bash|sh>
 # e.g. 进入service: 'php81' 容器
-sudo docker compose exec php81 bash
+docker compose exec php81 bash
 # e.g. `-u <user>` 指定用户进入容器
-sudo docker compose exec -u www-data php81 bash
+docker compose exec -u www-data php81 bash
 ```
 
 不进入容器直接执行容器中命令
 
 ```bash
-# sudo docker compose exec <service> <command>
+# docker compose exec <service> <command>
 # e.g. 执行 magento 指令
-sudo docker compose -u www-data -w /var/www/html php81 bin/magento c:c
+docker compose -u www-data -w /var/www/html php81 bin/magento c:c
 ```
 
 ### 脚本使用
-
-脚本执行提示无权限，使用 `sudo` 执行或添加当前用户到 `docker` 组中  
-> 查看 dde/README.md > 允许当前用户访问 Docker CLI  
-
-```bash
-# 使用 `sudo` 执行
-sudo ./exec.sh
-```
 
 exec.sh  
 > 进入容器  

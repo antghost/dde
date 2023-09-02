@@ -1,32 +1,18 @@
 #!/bin/bash
 echo 'Starting...';
 
-# 安装composer
-./install/composer.sh
-# 安装docker
-./install/docker.sh
+mkdir -p ./data ./logs && chmod 777 ./data ./logs
+# data
+mkdir -p ./data/magento/es && sudo chown 1000:0 ./data/magento/es && sudo chmod g+rwx ./data/magento/es
+# logs
+mkdir -p ./logs/magento/{php72,php74,php81,php82} && chmod 777 ./logs/magento/php*
 
-# 创建配置文件
-## Nginx
 mage_config_dir=./magento/config;
 echo 'Configure file init';
-if [ ! -f "$mage_config_dir/nginx/nginx.conf" ]; then
-    mkdir -p $mage_config_dir/nginx
-    cp ./config/nginx/nginx.conf $mage_config_dir/nginx/nginx.conf
-fi
 ## PHP
-if [ ! -d "$mage_config_dir/php" ]; then
-    mkdir -p $mage_config_dir/php
-fi
-cp -n ./config/php/* $mage_config_dir/php
-## es
-if [ ! -f "$mage_config_dir/es/elasticsearch.yml" ]; then
-    mkdir -p $mage_config_dir/es
-    cp ./config/es/elasticsearch.yml $mage_config_dir/es/elasticsearch.yml
-fi
+mkdir -p $mage_config_dir/php && cp -n ./config/php/* $mage_config_dir/php
 ## Redis
-mkdir -p $mage_config_dir/redis
-cp -n ./config/redis/*.conf $mage_config_dir/redis/
+mkdir -p $mage_config_dir/redis && cp -n ./config/redis/*.conf $mage_config_dir/redis/
 cp -n ./config/redis/*.conf ./redis/
 
 # 创建 docker-compose 文件
@@ -39,4 +25,5 @@ for file in * ; do
         cp ./$file/docker-compose.example.yml ./$file/docker-compose.yml;
     fi
 done
+
 echo 'Done.'
