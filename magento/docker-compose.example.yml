@@ -181,8 +181,6 @@ services:
       - 443:443
     volumes:
       - *www
-      - ../www/wordpress:/var/www/html/wordpress
-      # 配置文件
       - ./config/nginx/conf.d:/etc/nginx/conf.d
       - ../logs/magento/nginx:/var/log/nginx
     environment:
@@ -190,7 +188,7 @@ services:
     container_name: magento-nginx
     depends_on:
       - php81
-      - php82
+      # - php82
       - php74
       - php72
 
