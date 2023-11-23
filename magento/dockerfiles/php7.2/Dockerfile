@@ -4,10 +4,17 @@ FROM php:${PHP_VERSION}-fpm
 COPY ./php-ext/*.tgz /tmp/
 
 ARG SOURCES_MIRRORS
-RUN sed -i "s/deb.debian.org/${SOURCES_MIRRORS}/g" /etc/apt/sources.list \
-    && apt-get update && apt-get install -y --no-install-recommends \
+
+RUN set -eux; \
+    if [ ! -z "$SOURCES_MIRRORS" ];then \
+       sed -i "s/deb.debian.org/${SOURCES_MIRRORS}/g" /etc/apt/sources.list; \
+    fi;
+RUN set -eux;\
+    apt-get update && apt-get install -y --no-install-recommends \
         cron \
         gzip \
+        zip \
+        unzip \
         libpng-dev \
         libjpeg-dev \
         libmcrypt-dev \
@@ -16,17 +23,15 @@ RUN sed -i "s/deb.debian.org/${SOURCES_MIRRORS}/g" /etc/apt/sources.list \
         libxslt-dev \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
-        libpng-dev \
-        zip \
-        imagemagick \
-        libmagickwand-dev \
-    && apt-get clean \
-    && pecl install /tmp/redis-5.3.7.tgz \
+        libmagickwand-dev
+RUN set -eux; \
+    pecl install /tmp/redis-5.3.7.tgz \
     && pecl install /tmp/mcrypt-1.0.6.tgz \
     && pecl install /tmp/imagick-3.7.0.tgz \
     && pecl install /tmp/xdebug-3.1.6.tgz \
-    && docker-php-ext-enable redis mcrypt imagick xdebug \
-    && docker-php-ext-configure gd --with-freetype-dir --with-jpeg-dir \
-    && docker-php-ext-install -j"$(nproc)" gd zip exif soap intl bcmath xsl sockets mysqli pdo_mysql opcache pcntl \
-    && rm -r /tmp/pear && rm -r /tmp/*.tgz
+    && docker-php-ext-enable redis mcrypt imagick xdebug
+RUN docker-php-ext-configure gd --with-freetype-dir --with-jpeg-dir
+RUN docker-php-ext-install -j "$(nproc)" gd zip exif soap intl bcmath xsl sockets pdo_mysql opcache pcntl
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* \
+    rm -rf /tmp/pear ~/.pearrc && rm -rf /tmp/*.tgz
 RUN cp "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
