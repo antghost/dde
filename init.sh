@@ -26,4 +26,6 @@ for file in * ; do
     fi
 done
 
+docker network create dde
+
 echo 'Done.'

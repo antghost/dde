@@ -69,12 +69,11 @@ services:
     ports:
       - "${REDIS_PORT}:6379"
     volumes:
-      - ${DATA_DIR}/redis:/data
+      - ${DATA_DIR}/redis-${REDIS_VERSION}:/data
       - ./config/redis/redis-${REDIS_VERSION}.conf:/etc/redis.conf
     environment:
       - TZ=${TZ}
     entrypoint: [ "redis-server", "/etc/redis.conf" ]
-    command: --requirepass ${REDIS_PASSWORD}
     container_name: magento-redis
 
   es:
@@ -194,4 +193,5 @@ services:
 
 networks:
   default:
-    name: magento
+    name: dde
+    external: true

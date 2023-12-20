@@ -1,4 +1,4 @@
-version: '3.6'
+version: '3.8'
 services:
   gitlab:
     image: $GITLAB_IMAGE
@@ -18,4 +18,8 @@ services:
       - '$GITLAB_HOME/logs:/var/log/gitlab'
       - '$GITLAB_HOME/data:/var/opt/gitlab'
     shm_size: '256m'
-    container_name: $CONTAINER_NAME
+    container_name: dde-gitlab
+networks:
+  default:
+    name: dde
+    external: true

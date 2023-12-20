@@ -17,7 +17,7 @@ services:
       - ${WORDPRESS_SRC}:${WORKING_DIR}
     networks:
       - default
-    container_name: wp
+    container_name: dde-wp
 
   nginx:
     image: nginx:${NGINX_VERSION}
@@ -34,11 +34,14 @@ services:
     networks:
       - default
     restart: always
-    container_name: wp-nginx
+    container_name: dde-wp-nginx
     depends_on:
       - wp
 
 networks:
   default:
+    name: dde
+    external: true
+
 volumes:
   data:

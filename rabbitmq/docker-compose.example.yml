@@ -1,23 +1,25 @@
 version: "3.8"
 services:
-    rabbitmq:
-        image: rabbitmq:${RABBITMQ_VERSION}
-        ports:
-            - "${RABBITMQ_PORT_C}:5672"
-            - "${RABBITMQ_PORT_S}:15672"
-        volumes:
-            - ${DATA_DIR}:/var/lib/rabbitmq
-            # 使用数据卷, 把下一行的注释去掉，把上一行注释掉
-            # - data:/var/lib/rabbitmq
-        environment:
-            TZ: ${TZ}
-            RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
-            RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
-        networks:
-            - default
-        restart: always
-        container_name: rabbitmq
+  rabbitmq:
+    image: rabbitmq:${RABBITMQ_VERSION}
+    ports:
+      - "${RABBITMQ_PORT_C}:5672"
+      - "${RABBITMQ_PORT_S}:15672"
+    volumes:
+      - ${DATA_DIR}:/var/lib/rabbitmq
+      # 使用数据卷, 把下一行的注释去掉，把上一行注释掉
+      # - data:/var/lib/rabbitmq
+    environment:
+      TZ: ${TZ}
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    networks:
+      - default
+    restart: always
+    container_name: dde-rabbitmq
 networks:
-    default:
+  default:
+    name: dde
+    external: true
 volumes:
-    data:
+  data:

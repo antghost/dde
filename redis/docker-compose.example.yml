@@ -1,23 +1,24 @@
 version: "3.8"
 services:
-    redis:
-        image: redis:${REDIS_VERSION}
-        ports:
-            - "${REDIS_PORT}:6379"
-        volumes:
-            - ${DATA_DIR}:/data
-            # 使用数据卷, 把下一行的注释去掉，把上一行注释掉
-            # - data:/data
-            - ./redis-${REDIS_VERSION}.conf:/etc/redis.conf:rw
-        environment:
-            - TZ=${TZ}
-        entrypoint: [ "redis-server", "/etc/redis.conf" ]
-        command: --requirepass ${REDIS_PASSWORD}
-        networks:
-            - default
-        restart: always
-        container_name: redis
+  redis:
+    image: redis:${REDIS_VERSION}
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - ${DATA_DIR}-${REDIS_VERSION}:/data
+      # 使用数据卷, 把下一行的注释去掉，把上一行注释掉
+      # - data:/data
+      - ./redis-${REDIS_VERSION}.conf:/etc/redis.conf:rw
+    environment:
+      - TZ=${TZ}
+    entrypoint: [ "redis-server", "/etc/redis.conf" ]
+    networks:
+      - default
+    restart: always
+    container_name: dde-redis
 networks:
-    default:
+  default:
+    name: dde
+    external: true
 volumes:
-    data:
+  data:
