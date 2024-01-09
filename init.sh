@@ -26,6 +26,9 @@ for file in * ; do
     fi
 done
 
-docker network create dde
+network_dde=`docker network list | grep dde | wc -l`
+if [ $network_dde == 0 ]; then
+    docker network create dde
+fi
 
 echo 'Done.'
