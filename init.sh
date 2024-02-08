@@ -15,6 +15,21 @@ mkdir -p $mage_config_dir/php && cp -n ./config/php/* $mage_config_dir/php
 mkdir -p $mage_config_dir/redis && cp -n ./config/redis/*.conf $mage_config_dir/redis/
 cp -n ./config/redis/*.conf ./redis/
 
+## Magento Nginx php-fpm
+mage_nginx_php_conf=$mage_config_dir/nginx/conf.d/phpfastcgi.conf;
+if [ ! -f $mage_nginx_php_conf ]; then
+  echo \
+"upstream fastcgi_72 {
+  server php72:9000;
+}
+upstream fastcgi_74 {
+  server php74:9000;
+}
+upstream fastcgi_81 {
+  server php81:9000;
+}" | tee $mage_nginx_php_conf > /dev/null
+fi
+
 # 创建 docker-compose 文件
 echo 'docker-compose && env file init';
 for file in * ; do
