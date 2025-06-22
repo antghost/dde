@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eux;
 echo 'Starting...';
 
 mkdir -p ./data ./logs && chmod 777 ./data ./logs
@@ -6,11 +7,14 @@ mkdir -p ./data ./logs && chmod 777 ./data ./logs
 mkdir -p ./data/magento/es && sudo chown 1000:0 ./data/magento/es && sudo chmod g+rwx ./data/magento/es
 # logs
 mkdir -p ./logs/magento/{php72,php74,php81,php82} && chmod 777 ./logs/magento/php*
+mkdir -p ./logs/laravel/{php82,php83,php84} && chmod 777 ./logs/laravel/php*
 
 mage_config_dir=./magento/config;
+laravel_config_dir=./laravel/config;
 echo 'Configure file init';
 ## PHP
 mkdir -p $mage_config_dir/php && cp -n ./config/php/* $mage_config_dir/php
+mkdir -p $laravel_config_dir/php && cp -n ./config/php/* $laravel_config_dir/php
 ## Redis
 mkdir -p $mage_config_dir/redis && cp -n ./config/redis/*.conf $mage_config_dir/redis/
 cp -n ./config/redis/*.conf ./redis/
@@ -28,6 +32,14 @@ upstream fastcgi_74 {
 upstream fastcgi_81 {
   server php81:9000;
 }" | tee $mage_nginx_php_conf > /dev/null
+fi
+## Laravel Nginx php-fpm
+laravel_nginx_php_conf=$laravel_config_dir/nginx/conf.d/phpfastcgi.conf;
+if [ ! -f $laravel_nginx_php_conf ]; then
+  echo \
+"upstream fastcgi_83 {
+  server php83:9000;
+}" | tee $laravel_nginx_php_conf > /dev/null
 fi
 
 # 创建 docker-compose 文件

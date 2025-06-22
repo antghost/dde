@@ -1,0 +1,20 @@
+services:
+  mailpit:
+    image: axllent/mailpit:${IMAGE_VERSION}
+    container_name: mailpit
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+    ports:
+      - "${SMTP_PORT}:1025"
+      - "${HTTP_PORT}:8025"
+    environment:
+      TZ: UTC
+      MP_DATABASE: /data/mailpit.db
+      # MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+      MP_UI_AUTH_FILE: /data/authfile
+      MP_SMTP_AUTH_FILE: /data/authfile
+      MP_POP3_AUTH_FILE: /data/authfile
+      MP_SMTP_TLS_CERT: /data/cert/cert.pem
+      MP_SMTP_TLS_KEY: /data/cert/key.pem

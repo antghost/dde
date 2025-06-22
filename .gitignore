@@ -12,6 +12,8 @@ magento/config/php/*
 magento/config/redis/*
 magento/config/es/*
 magento/config/rabbitmq/*
+laravel/config/*
+!laravel/config/nginx
 mysql/conf.d/*
 redis/*.conf
 docker-compose.yml
