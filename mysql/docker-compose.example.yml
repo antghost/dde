@@ -5,8 +5,6 @@ services:
       - "${MYSQL_PORT}:3306"
     volumes:
       - ${DATA_DIR}:/var/lib/mysql
-      # 使用数据卷, 把下一行的注释去掉，把上一行注释掉
-      # - data:/var/lib/mysql
       - ./conf.d:/etc/mysql/conf.d:rw
     environment:
       TZ: ${TZ}
@@ -14,7 +12,16 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    command:
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --transaction-isolation=READ-COMMITTED
+      --explicit_defaults_for_timestamp=1
+      --max_connections=100
+      --innodb_buffer_pool_size=512M
+      --innodb_log_file_size=256M
+      --sql-mode="STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION"
     restart: always
     networks:
       - default

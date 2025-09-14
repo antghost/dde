@@ -29,7 +29,8 @@ RUN set -eux;\
     && pecl install https://pecl.php.net/get/imagick-3.8.0.tgz \
     && pecl install https://pecl.php.net/get/ssh2-1.4.1.tgz \
     && pecl install https://pecl.php.net/get/xdebug-3.4.3.tgz \
-    && docker-php-ext-enable redis mcrypt swoole imagick ssh2 xdebug
+    && pecl install https://pecl.php.net/get/apcu-5.1.27.tgz \
+    && docker-php-ext-enable redis mcrypt swoole imagick ssh2 xdebug apcu
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install -j "$(nproc)" gd zip exif soap intl bcmath xsl sockets pdo_mysql opcache pcntl
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* \

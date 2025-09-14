@@ -17,6 +17,21 @@ disable-log-bin
 skip-character-set-client-handshake
 explicit_defaults_for_timestamp
 
+# 事务隔离级别
+transaction-isolation = READ-COMMITTED
+
+# 连接配置
+max_connections = 100
+wait_timeout = 28800
+interactive_timeout = 28800
+
+# InnoDB 配置
+innodb_buffer_pool_size = 512M
+innodb_log_file_size = 256M
+innodb_flush_log_at_trx_commit = 2
+innodb_file_per_table = 1
+
+# 日志配置
 slow_query_log          = 1
 long_query_time         = 3
 slow-query-log-file     = /var/lib/mysql/log/mysql.slow.log
